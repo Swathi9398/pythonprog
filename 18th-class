@@ -101,8 +101,10 @@ else:
  
  
  #write a program to find the greatest of 3 numbers by taking input from the user
- 
-  
+ a=int(input("enter: "))
+ b=int(input("enter: "))
+ c=int(input("enter: "))
+ print(max(a,b,c))
   
 
 

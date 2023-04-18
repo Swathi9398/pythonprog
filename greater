@@ -1,0 +1,9 @@
+a = input("enter a num : ")
+b = input("enter a num : ")
+c = input("enter a num : ")
+if(a>b and a>c):
+    print(a)
+elif(b>a and b>c):
+    print(b)
+else:
+    print(c)

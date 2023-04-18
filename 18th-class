@@ -105,12 +105,22 @@ else:
 a=int(input("Enter a value:"))
 b=int(input("Enter b value:"))
 c=int(input("Enter c value:"))
+if a==b:
+ print("both are same")
+if a==c:
+ print("both are same")
+ if b==c:
+ print("both are same")
+
 if(a>b and a>c):
   print("a is greater")
 elif(b>a and b>c):
   print("b is greater")
+ elif(a==b or b==c or a==c):
+  print("both are same)
 else:
   printf("c is greater")
+ 
  
   
    #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,

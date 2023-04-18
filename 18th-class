@@ -100,18 +100,19 @@ else:
   print(" b is the greatest")
  
  
- #write a program to find the greatest of 3 numbers 
-a=int(input("Enter a value:"))
-b=int(input("Enter b value:"))
-c=int(input("Enter c value:"))
-if(a>b and a>c):
-  print("a is greater")
-elif(b>a and b>c):
-  print("b is greater")
-else:
-  printf("c is greater")
+ #write a program to find the greatest of 3 numbers by taking input from the user
  
   
-  
+num1 = int(input("Enter the 1st no : "))
+num2 = int(input("Enter the 2nd no : "))
+num3 = int(input("Enter the 3rd no : "))
+if (num1 >= num2) and (num1 >= num3):
+   largest = num1
+elif (num2 >= num1) and (num2 >= num3):
+   largest = num2
+else:
+   largest = num3
+
+print("The largest number is", largest)
 
 

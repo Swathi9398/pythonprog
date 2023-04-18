@@ -102,7 +102,19 @@ else:
  
  #write a program to find the greatest of 3 numbers by taking input from the user
  
-  
+  a=int(input("Enter the value of a"))
+b=int(input("Enter the value of b"))
+c=int(input("Enter the value of c"))
+int max;
+if(a>b AND a>c)
+  max=a
+elseif(b>a AND b>c)
+  max=b
+elseif(c>a AND c>b)
+  max=c
+else
+  print(Inadequate)
+print(max)  
   
 
 

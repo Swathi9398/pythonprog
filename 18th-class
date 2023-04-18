@@ -117,4 +117,21 @@ else:
    
    
 
+a=int(input("Enter the value,a="))
+b=int(input("Enter the value,b="))
+c=int(input("Enter the value,c="))
+if(a>b):
+ if(a>c):
+  print("Greatest is ",a)
+  if(b==c):print("b=c")
+ else:
+  print("Greatest is ",c)
+  if(b==a):print("b=a")
+else:
+  if(b>c):
+   print("Greatest is ",b)
+   if(a==c):print("a=c")
+  else:
+   print("Greatest is ",c)
+   if(a==b):print("a=b")
 

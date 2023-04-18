@@ -1,0 +1,9 @@
+a=int(input("num1: "))
+b=int(input("num2: "))
+c=int(input("num3: "))
+if a>b and b>c:
+    print("num1 is greatest")
+elif b>c and b>a:
+    print("num2 is greatest")
+else:
+    print("num3 is greatest")

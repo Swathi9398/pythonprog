@@ -100,7 +100,19 @@ else:
   print(" b is the greatest")
  
  
- #write a program to find the greatest of 3 numbers by taking input from the user
+ #write a program to find the greatest of 3 numbers 
+ #include<stdio.h>
+ void main()
+ {
+ int a,b,c;
+ scanf("%d%d%d",&a,&b,&c);
+ if(a>b&&a>c)
+ printf("%d",a);
+ if(b>a&&b>c)
+ printf("%d",b);
+ if(c>a&&c>b)
+ printf("%d",c);
+ }
  
   
   

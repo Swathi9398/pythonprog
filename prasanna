@@ -1,0 +1,9 @@
+a=int(input('Enter value:"))
+b=int(input('Enter value:"))
+c=int(input('Enter value:"))
+if a>b and a>c:
+  print("max number is :",a)
+elif b>a and b>c:
+  print("max number is: ",b)
+else:
+  print("max number is : ",c)

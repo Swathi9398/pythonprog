@@ -6,6 +6,8 @@ elif a==c:
   print("a is equal to c")
 elif b==c:
   print("b is equal to c")
+else:
+  print("No two numbers are equal")
 
 if a>b and a>c :
   print("a = %d is big" %a)

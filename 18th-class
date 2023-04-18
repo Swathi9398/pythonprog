@@ -101,7 +101,16 @@ else:
  
  
  #write a program to find the greatest of 3 numbers by taking input from the user
- 
+
+a=int(input("Enter a value:"))
+b=int(input("Enter a value:"))
+c=int(input("Enter a value:"))
+if(a>b and a>c):
+  print(a is big)
+elif (b>a and b>c):
+  print(b is big)
+else:
+  print(c is big) 
   
   
 

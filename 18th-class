@@ -92,15 +92,26 @@ else
 
 example:
 
-a=10
-b=20
+#write a program to find the greatest of 3 numbers
+
+
+a=int(input('enter first number:'))
+b=int(input('enter second number:'))
+c=int(input('enter third number:'))
 if a>b:
-  print(" a is the greatest")
+  if a>c:
+    print(" %d is the greatest"%(a))
+  else :
+    print(" %d is the greatest"%(c))
 else:
-  print(" b is the greatest")
+  if b>c:
+    print(" %d is the greatest"%(b))
+  else :
+    print(" %d is the greatest"%(c))
+    
  
  
- #write a program to find the greatest of 3 numbers by taking input from the user
+  
  
   
   

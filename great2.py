@@ -15,5 +15,3 @@ elif b>a and b>c :
   print("b = %d is big" %b)
 else :
   print("c = %d is big" %c)
-  
-

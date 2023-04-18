@@ -1,0 +1,15 @@
+a=int
+(input('Enter value:"))
+b=int(input('Enter value:"))
+c=int(input('Enter value:"))
+if a>b and a>c:
+  max=a
+elif b>a and b>c:
+  max=b
+else:
+ max=c
+if a==b or b==c or a==c:
+print('equa')
+else:
+print('max')
+  

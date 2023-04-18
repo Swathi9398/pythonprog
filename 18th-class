@@ -114,6 +114,26 @@ else:
  
   
    #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,
+   a=int(input("Enter a value:"))
+b=int(input("Enter b value:"))
+c=int(input("Enter c value:"))
+if(a>b and a>c):
+  print("a is greater")
+elif(b>a and b>c):
+  print("b is greater")
+else:
+  printf("c is greater")
+if(a==b):
+  print(a,b,"are equal")
+elif(b==c):
+  print(c,b,"are equal")
+else:
+   if(a==c):
+         print(c,a,"are equal")
+    else:
+         print("no same numbers");
+         
+  
    
    
 

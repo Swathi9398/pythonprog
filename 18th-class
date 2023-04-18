@@ -116,5 +116,35 @@ else:
    #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,
    
    
+#include<stdio.h>
+void main()
+{
+int a,b,c;
+scanf("%d%d%d",&a,&b,&c);
+if(1){
+if(a==b||a==c)
+printf("%d%d",a,a);
+if(c==b||c==a)
+printf("%d%d",c,c);
+if(b==a||b==c)
+printf("%d%d",b,b);
+}else{
+if(a>b&&a>c)
+printf("%d",a);
+if(b>a&&b>c)
+printf("%d",a);
+if(c>a&&c>b)
+printf("%d",c);
+}
+}
+
+
+
+
+
+
+
+
+
 
 

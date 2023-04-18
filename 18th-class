@@ -105,9 +105,15 @@ else:
 a=int(input("Enter a value:"))
 b=int(input("Enter b value:"))
 c=int(input("Enter c value:"))
+if a == b:
+  print("a and b are equal")
+if b == c:
+  print("b and c are equal")
+if c == a:
+  print("c and a are equal")
 if(a>b and a>c):
   print("a is greater")
-elif(b>a and b>c):
+elif b>c:
   print("b is greater")
 else:
   printf("c is greater")

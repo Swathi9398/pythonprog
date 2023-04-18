@@ -117,4 +117,27 @@ if(a>b):
     print('b is greatest",b)
   else:
   print("c is greatest",c)
+  
+  a=int(input("enter the value1"))
+b=int(input("Enter the value2"))
+c=int(input("Enter the value3"))
+if(a==b):
+    print("a and b are equal")
+elif(b==c):
+    print("b and c are equal")
+elif(a==c):
+    print("a and c are equal")
+    
+if(a>b):
+    if(a>c):
+        print("a is greatest",a)
+    else:
+        print("c is greatest",c)
+if(b>a):
+    if(b>c):
+        print("b is greatest",b)
+    else:
+        print("c is greatest",c)
+            
+
 

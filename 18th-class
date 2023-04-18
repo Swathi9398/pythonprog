@@ -100,8 +100,14 @@ else:
   print(" b is the greatest")
  
  
- #write a program to find the greatest of 3 numbers by taking input from the user
- 
+ #write a program to find the greatest of 3 numbers 
+ [a,b,c]=int(input('enter three values'))
+if a>b && a>c
+     print('a is great')
+     elif b>a && b>c
+     print('b is great')
+     else
+     print('c is great')     
   
   
 

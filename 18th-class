@@ -33,6 +33,7 @@ Operators:The symbols that perform operation on operands
 2. Logical: AND, OR, NOT
 
  a>b AND a>c
+ 
   e1  e2 output                          
   0   0    0
   1   0    0
@@ -100,8 +101,18 @@ else:
   print(" b is the greatest")
  
  
- #write a program to find the greatest of 3 numbers by taking input from the user
- 
+ #write a program to find the greatest of 3 numbers 
+ a=int(input)
+ b=int(input)
+ c=int(input)
+ if (a>b and a>c):
+    print(a,"is greater")
+  elif b>c:
+     print(b,"is greater")
+  else:
+  print(c,"is greater")
+  
+    
   
   
 

@@ -111,7 +111,14 @@ elif(b>a and b>c):
   print("b is greater")
 else:
   printf("c is greater")
- 
+ if(a==b)
+  print("a and b are same")
+ elif(b==c)
+  print("b and c are same")
+ elif(c==a)
+  print("a and c are same")
+ else
+  print("No two are equal")
   
    #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,
    

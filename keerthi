@@ -1,0 +1,9 @@
+a=int(input('enter one number')
+b=int(input('enter second number')
+c=int(input('enter third number')
+if a>b && a>c:
+  print(a)
+elif b>c && b>a:
+  print(b)
+else:
+  print(c)

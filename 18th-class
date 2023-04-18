@@ -124,6 +124,21 @@ else:
  
   
    #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,
+   n1=int(input("Enter a value:"))
+   n2=int(input("Enter a value:"))
+   n3=int(input("Enter a value:"))
+   if(n1>n3 and n1>n2):
+     print("greatest is",n1)
+     if(n2==n3):
+      print("equal are",n2,n3)
+   elif(n2>n1 and n2>n3):
+     print("greatest is",n2)
+     if(n1==n3):
+      print("equal are",n1,n3)
+   else:
+     print("greatest is,n3)
+     if(n1==n2):
+      print("equal are:",n1,n2)
    
    
 

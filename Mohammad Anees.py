@@ -1,9 +1,9 @@
 a=int(input("Enter Num"))
 b=int(input("Enter Num:"))
 c=int(input("Enter Num:"))
-if a>=b and a>=c:
+if a>b and a>c:
   print("a is greater")
-elif b>=a and b>=c:
+elif b>a and b>c:
   print("b is  equal")
 else:
   print("C is great")

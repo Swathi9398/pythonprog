@@ -125,6 +125,84 @@ else:
   
    #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,
    
+   #Grades of a student
+   
+   m=int(input("Enter the student marks : ))
+   if(m>=75):
+      print("Distinction")
+   elif m>=65 and m<75:
+      print("First class")
+   elif m>=55 and m<65:
+      print("Second class")
+   elif m>=45 and m<55:
+      print("Third class")
+   else:
+      print("Failed")
+      
+      
+    #Leap Year
+    
+   y=int(input("Enter the year: "))
+   if (y%4==0 and  y%100!=0) or (y%400==0):
+      print("Leap year")
+   else:
+      print("Not a leap year")
+   
+   
+   #Given number is even or odd or zero
+   
+   n=int(input("Enter a number: "))
+   if n==0:
+      print("Number is zero")
+   elif n%2==0:
+      print("Number is even")
+   else:
+      print("Number is odd")
+   
+   
+   #Basic calculator operations
+   a=int(input("Enter num1: "))
+   b=int(input("Enter num2: "))
+   c=input("PLease enter operation symbol (+, _, *, /  only):  "))
+   if c== '+':
+      print("Addition:",a+b)
+   elif c=='-':
+      print("Subtraction: ",a-b)
+   elif c=='*':
+      print("Multiplication: ",a*b)
+   elif c=='/':
+      print("Division:",a//b)
+   
+   
+   #Strength of a password
+   
+   p=input("Enter the password know its strength: ")
+   capalpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+   smalpha='abcdefghijklmnopqrstuvwxyz"
+   dig="1234567890"
+   spchar="@#$_!"
+   for i in range(p):
+      len+=1
+      if i in capalpha:
+         cap+=1
+      elif i in smalpha:
+         sm+=1
+      elif i in dig:
+         digit+=1
+      elif i in spchar:
+         sp+=1
+   if len>=8 and cap>=1 and sm>=1 and digit>=1 and sp>=1:
+      print("Password strength is Strong")
+   elif len>=8 and cap>=1 and sm>=1 digit>=1:
+      print("Password strength is Medium")
+   elif len>=8 and cap>=1 and sm>=1:
+       print("Password strength is low")
+   else:
+      print("Password length must be greater than 8 and contain capital and small alphabets along with digits and special characters")
+   
+   
+   
+     
    
 
 

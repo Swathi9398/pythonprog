@@ -118,13 +118,54 @@ Program 2: To check if a number is armstrong or not:
 1. Calculate the area of triangle, square and rectangle.
 2. Swap 3 numbers
 3. fibonacci series
-0,1,1,2,3,5,8
+1. Calculate the area of triangle, square and rectangle.
+2. Swap 3 numbers
+3. fibonacci series
 
-Logic:
+ 1.calculate area of triangle, square, rectangle
+ select=int(input("Select a choice 1.area of triangle  2. area of square 3.area of rectangle"))
+ if select==1:
+     a=int(input("Enter base length: "))
+     b=int(input("Enter height of triangle: "))
+     print("Area of trianlge is: ",(1/2)*a*b)
+ elif select==2:
+     c=int(input("Enter side of square: "))
+     print("Area of square: ",c*c)
+ elif select==3:
+     d=int(input("Enter length: "))
+     e=int(input("Enter breadth: "))
+     print("Area of rectangle is ",d*e)
+ else:
+     print("Invalid")
 
-c= a+b
-a=b
-b=c
+ 2.program for swap of 3 numbers
+ a=int(input("num1="))
+ b=int(input("num2="))
+ c=int(input("num3="))
+ if(b<a):
+     a,b=b,a
+ if(c<b):
+     b,c=c,b
+     if(b<a):
+         b,a=a,b
+print(a,b,c)
+
+
+ 3.fibonacci series
+ f=0
+ f1=1
+ a=int(input("Enter how many numbers: "))
+ print(f,f1,end=" ")
+ for i in range(2,a):
+     k=f+f1
+     print(k,end=" ")
+     f=f1
+     f1=k
+
+
+
+
+  
 
 
 

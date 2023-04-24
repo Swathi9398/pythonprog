@@ -119,11 +119,12 @@ elif(b>a and b>c):
  elif(a==b or b==c or a==c):
   print("both are same)
 else:
-  printf("c is greater")
+  printf("c is t greater")
  
  
   
    #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,
+   
    
    
 

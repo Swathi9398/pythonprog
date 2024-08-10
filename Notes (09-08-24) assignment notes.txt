@@ -1,0 +1,582 @@
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 33
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE INFO;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> USE INFO;
+Database changed
+mysql> -- Create Customers Table
+mysql> CREATE TABLE Customers (
+    ->     CustomerID INT PRIMARY KEY,
+    ->     CustomerName VARCHAR(255),
+    ->     ContactName VARCHAR(255),
+    ->     Country VARCHAR(255)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> -- Create Orders Table
+mysql> CREATE TABLE Orders (
+    ->     OrderID INT PRIMARY KEY,
+    ->     CustomerID INT,
+    ->     OrderDate DATE,
+    ->     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> -- Create Products Table
+mysql> CREATE TABLE Products (
+    ->     ProductID INT PRIMARY KEY,
+    ->     ProductName VARCHAR(255),
+    ->     Price DECIMAL(10, 2)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> -- Insert records into Customers Table
+mysql> INSERT INTO Customers (CustomerID, CustomerName, ContactName, Country) VALUES
+    -> (1, 'Alfreds', 'Maria', 'Germany'),
+    -> (2, 'Ana Trujillo', 'Ana', 'Mexico'),
+    -> (3, 'Antonio', 'Antonio', 'Mexico');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> -- Insert records into Orders Table
+mysql> INSERT INTO Orders (OrderID, CustomerID, OrderDate) VALUES
+    -> (1, 1, '2023-01-01'),
+    -> (2, 2, '2023-01-02'),
+    -> (3, 3, '2023-01-03');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> -- Insert records into Products Table
+mysql> INSERT INTO Products (ProductID, ProductName, Price) VALUES
+    -> (1, 'Apples', 1.00),
+    -> (2, 'Oranges', 2.00),
+    -> (3, 'Bananas', 1.50);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| codegnan           |
+| company            |
+| example            |
+| info               |
+| information_schema |
+| instagram_clone_db |
+| librarydb          |
+| mysql              |
+| performance_schema |
+| product_details    |
+| sales              |
+| sys                |
+| trail              |
++--------------------+
+13 rows in set (0.02 sec)
+
+mysql> SELECT * FROM PROCDUCTS;L
+ERROR 1146 (42S02): Table 'info.procducts' doesn't exist
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'L' at line 1
+mysql> SELECT * FROM PROCDUCTS;
+ERROR 1146 (42S02): Table 'info.procducts' doesn't exist
+mysql> SELECT * FROM PRODUCTS;
++-----------+-------------+-------+
+| ProductID | ProductName | Price |
++-----------+-------------+-------+
+|         1 | Apples      |  1.00 |
+|         2 | Oranges     |  2.00 |
+|         3 | Bananas     |  1.50 |
++-----------+-------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM ORDERS;
++---------+------------+------------+
+| OrderID | CustomerID | OrderDate  |
++---------+------------+------------+
+|       1 |          1 | 2023-01-01 |
+|       2 |          2 | 2023-01-02 |
+|       3 |          3 | 2023-01-03 |
++---------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++------------+--------------+-------------+---------+
+| CustomerID | CustomerName | ContactName | Country |
++------------+--------------+-------------+---------+
+|          1 | Alfreds      | Maria       | Germany |
+|          2 | Ana Trujillo | Ana         | Mexico  |
+|          3 | Antonio      | Antonio     | Mexico  |
++------------+--------------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS
+    -> WHERE COUNTRY = 'MEXICO';
++------------+--------------+-------------+---------+
+| CustomerID | CustomerName | ContactName | Country |
++------------+--------------+-------------+---------+
+|          2 | Ana Trujillo | Ana         | Mexico  |
+|          3 | Antonio      | Antonio     | Mexico  |
++------------+--------------+-------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT CUSTOMERNAME FROM CUSTOMERS
+    -> WHERE COUNTRY = 'MEXICO';
++--------------+
+| CUSTOMERNAME |
++--------------+
+| Ana Trujillo |
+| Antonio      |
++--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT CUSTOMERNAME, COUNTRY FROM CUSTOMERS
+    -> WHERE COUNTRY = 'MEXICO';
++--------------+---------+
+| CUSTOMERNAME | COUNTRY |
++--------------+---------+
+| Ana Trujillo | Mexico  |
+| Antonio      | Mexico  |
++--------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> -- 2
+mysql>
+mysql> -- RETRIVE ALL ORDERS ALONG WITH THE CUSTOMER NAMES?
+mysql> SELECT CU.CUSTOMERNAME, CU.CUSTOMERID FROM CUSTOMERS
+    -> JOIN ORDERS ON
+    -> JOIN ORDERS ON^C
+mysql> SELECT CU.CUSTOMERNAME, CU.CUSTOMERID FROM CUSTOMERS CU
+    -> JOIN ORDERS ON
+    -> CUSTOMERS.CUSTOMERID = ORDERS.CUSTOMERID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMERS.CUSTOMERID' in 'on clause'
+mysql> SELECT CU.CUSTOMERNAME, CU.CUSTOMERID FROM CUSTOMERS CU
+    -> JOIN ORDERS ON
+    -> CUSTOMER.CustomeRID.CUSTOMERID = ORDERS.CUSTOMERID;
+ERROR 1054 (42S22): Unknown column 'customer.CustomeRID.CUSTOMERID' in 'on clause'
+mysql> SELECT CU.CUSTOMERNAME, CU.CUSTOMERID FROM CUSTOMERS CU
+    -> JOIN ORDERS ON
+    -> CUSTOMERS.CustomeRID= ORDERS.CUSTOMERID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMERS.CustomeRID' in 'on clause'
+mysql> SELECT CU.CUSTOMERNAME, CU.CUSTOMERID FROM CUSTOMERS CU
+    -> JOIN ORDERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMERS.CUSTOMERID' in 'on clause'
+mysql> SELECT CU.CUSTOMERNAME, ORDERS.CUSTOMERID FROM CUSTOMERS CU
+    -> JOIN ORDERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMERS.CUSTOMERID' in 'on clause'
+mysql> SELECT ORDERS.CUSTOMERID, ORDERS.ORDERDATE, CUSTOMERS.CUSTOMERNAME FROM ORDERS
+    -> INNER JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID;
++------------+------------+--------------+
+| CUSTOMERID | ORDERDATE  | CUSTOMERNAME |
++------------+------------+--------------+
+|          1 | 2023-01-01 | Alfreds      |
+|          2 | 2023-01-02 | Ana Trujillo |
+|          3 | 2023-01-03 | Antonio      |
++------------+------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCTS
+    -> CROSS JOIN CUSTOEMRS;
+ERROR 1146 (42S02): Table 'info.custoemrs' doesn't exist
+mysql> SELECT * FROM PRODUCTS
+    -> CROSS JOIN CUSTOMERS;
++-----------+-------------+-------+------------+--------------+-------------+---------+
+| ProductID | ProductName | Price | CustomerID | CustomerName | ContactName | Country |
++-----------+-------------+-------+------------+--------------+-------------+---------+
+|         3 | Bananas     |  1.50 |          1 | Alfreds      | Maria       | Germany |
+|         2 | Oranges     |  2.00 |          1 | Alfreds      | Maria       | Germany |
+|         1 | Apples      |  1.00 |          1 | Alfreds      | Maria       | Germany |
+|         3 | Bananas     |  1.50 |          2 | Ana Trujillo | Ana         | Mexico  |
+|         2 | Oranges     |  2.00 |          2 | Ana Trujillo | Ana         | Mexico  |
+|         1 | Apples      |  1.00 |          2 | Ana Trujillo | Ana         | Mexico  |
+|         3 | Bananas     |  1.50 |          3 | Antonio      | Antonio     | Mexico  |
+|         2 | Oranges     |  2.00 |          3 | Antonio      | Antonio     | Mexico  |
+|         1 | Apples      |  1.00 |          3 | Antonio      | Antonio     | Mexico  |
++-----------+-------------+-------+------------+--------------+-------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT CUSTOEMRID, CUSTOEMRNAME,COUNTRY FROM CUSTOEMRS
+    -> GROUP BY COUNTRY ;
+ERROR 1146 (42S02): Table 'info.custoemrs' doesn't exist
+mysql> SELECT CUSTOEMRID, CUSTOEMRNAME,COUNTRY FROM CUSTOMERS
+    -> GROUP BY COUNTRY ;
+ERROR 1054 (42S22): Unknown column 'CUSTOEMRID' in 'field list'
+mysql> SELECT CUSTOMERID, CUSTOEMRNAME,COUNTRY FROM CUSTOEMRS
+    -> GROUP BY COUNTRY ;
+ERROR 1146 (42S02): Table 'info.custoemrs' doesn't exist
+mysql> SELECT CUSTOEMRID, CUSTOMERNAME,COUNTRY FROM CUSTOMERS
+    -> GROUP BY COUNTRY ;
+ERROR 1054 (42S22): Unknown column 'CUSTOEMRID' in 'field list'
+mysql> SELECT CUSTOMERID, CUSTOEMRNAME,COUNTRY FROM CUSTOEMRS
+    -> ;
+ERROR 1146 (42S02): Table 'info.custoemrs' doesn't exist
+mysql> SELECT * FROM CUSTOMERS
+    -> GROUP BY COUNTRY;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'info.CUSTOMERS.CustomerID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT CUSTOMERID, CUSTOMERNAME, COUNTRY FROM CUSTOMERS
+    -> GROUP BY COUNTRY
+    -> ORDER BY CUSTOMERNAME;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'info.CUSTOMERS.CustomerID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT ORDERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, CUSTOMERS.COUNTRY FROM CUSTOMERS
+    -> JOIN ORDERS ON
+    -> ORDERS.CUSTOMERID = CUSOTMERS.CUSTOMERID
+    -> GROUP BY COUNTRY;
+ERROR 1054 (42S22): Unknown column 'CUSOTMERS.CUSTOMERID' in 'on clause'
+mysql> SELECT ORDERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, CUSTOMERS.COUNTRY FROM ORDERS
+    -> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSOTMERS.CUSTOMERID
+    -> GROUP BY COUNTRY;
+ERROR 1054 (42S22): Unknown column 'CUSOTMERS.CUSTOMERID' in 'on clause'
+mysql> SELECT CUSTOMERNAME, CUSTOMERID, COUNTRY FROM CUSTOMERS
+    -> WHERE COUNTRY = '
+    '> MEXICO';
+Empty set (0.00 sec)
+
+mysql> SELECT CUSTOMERNAME, CUSTOMERID, COUNTRY FROM CUSTOMERS
+    -> WHERE COUNTRY = 'MEXICO';
++--------------+------------+---------+
+| CUSTOMERNAME | CUSTOMERID | COUNTRY |
++--------------+------------+---------+
+| Ana Trujillo |          2 | Mexico  |
+| Antonio      |          3 | Mexico  |
++--------------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCTS;
++-----------+-------------+-------+
+| ProductID | ProductName | Price |
++-----------+-------------+-------+
+|         1 | Apples      |  1.00 |
+|         2 | Oranges     |  2.00 |
+|         3 | Bananas     |  1.50 |
++-----------+-------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++------------+--------------+-------------+---------+
+| CustomerID | CustomerName | ContactName | Country |
++------------+--------------+-------------+---------+
+|          1 | Alfreds      | Maria       | Germany |
+|          2 | Ana Trujillo | Ana         | Mexico  |
+|          3 | Antonio      | Antonio     | Mexico  |
++------------+--------------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM ORDERS;
++---------+------------+------------+
+| OrderID | CustomerID | OrderDate  |
++---------+------------+------------+
+|       1 |          1 | 2023-01-01 |
+|       2 |          2 | 2023-01-02 |
+|       3 |          3 | 2023-01-03 |
++---------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL_ORDERS_BY_EACH_CUSTOMER FROM CUSTOMERS
+    -> JOIN ORDERS ON
+    -> CUSTOEMRS.CUSTOMERID = ORDERS.CUSTOMERID
+    -> GROUP BY TOTAL_ORDERS_BY_EACH_CUSTOEMR;
+ERROR 1054 (42S22): Unknown column 'CUSTOEMRS.CUSTOMERID' in 'on clause'
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL_ORDERS_BY_EACH_CUSTOMER FROM ORDERS
+    -> JOIN CUSTOEMRS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> GROUP BY TOTAL_ORDERS_BY_EACH_CUSTOEMR;
+ERROR 1146 (42S02): Table 'info.custoemrs' doesn't exist
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL_ORDERS_BY_EACH_CUSTOMER FROM ORDERS
+    -> JOIN CUSTOEMRS ON
+    -> ^C
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL_ORDERS_BY_EACH_CUSTOMER FROM ORDERS
+    -> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> GROUP BY TOTAL_ORDERS_BY_EACH_CUSTOEMR;
+ERROR 1054 (42S22): Unknown column 'TOTAL_ORDERS_BY_EACH_CUSTOEMR' in 'group statement'
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL_ORDERS_BY_EACH_CUSTOMER FROM ORDERS
+    -> JOIN CUSTOEMRS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID;
+ERROR 1146 (42S02): Table 'info.custoemrs' doesn't exist
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL_ORDERS_BY_EACH_CUSTOMER FROM ORDERS
+    -> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'info.CUSTOMERS.CustomerID'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL FROM ORDERS
+    -> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'info.CUSTOMERS.CustomerID'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL_ORDERS_BY_EACH_CUSTOMER FROM ORDERS
+    -> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> GROUP BY TOTAL;
+ERROR 1054 (42S22): Unknown column 'TOTAL' in 'group statement'
+mysql> SELECT COUNTRY, CONCAT(CUSTOMERNAME, CONTACTNAME) AS CUSTOMERS
+    -> FROM CUSTOMERS
+    -> GROUP BY COUNTRY
+    -> HAVING(COUNT(*) > 1);
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'info.CUSTOMERS.CustomerName' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT COUNTRY, GROUP_CONCAT(CUSTOMERNAME, CONTACTNAME) AS CUSTOMERS
+    -> FROM CUSTOMERS
+    -> GROUP BY COUNTRY
+    -> HAVING(COUNT(*) > 1);
++---------+--------------------------------+
+| COUNTRY | CUSTOMERS                      |
++---------+--------------------------------+
+| Mexico  | Ana TrujilloAna,AntonioAntonio |
++---------+--------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT * FROM PRODUCTS;
++-----------+-------------+-------+
+| ProductID | ProductName | Price |
++-----------+-------------+-------+
+|         1 | Apples      |  1.00 |
+|         2 | Oranges     |  2.00 |
+|         3 | Bananas     |  1.50 |
++-----------+-------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++------------+--------------+-------------+---------+
+| CustomerID | CustomerName | ContactName | Country |
++------------+--------------+-------------+---------+
+|          1 | Alfreds      | Maria       | Germany |
+|          2 | Ana Trujillo | Ana         | Mexico  |
+|          3 | Antonio      | Antonio     | Mexico  |
++------------+--------------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM ORDERS;
++---------+------------+------------+
+| OrderID | CustomerID | OrderDate  |
++---------+------------+------------+
+|       1 |          1 | 2023-01-01 |
+|       2 |          2 | 2023-01-02 |
+|       3 |          3 | 2023-01-03 |
++---------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT CUSTOMERID, COUNT(*) AS TOTAL FROM ORDERS
+    -> ;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'info.ORDERS.CustomerID'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT CUSTOMERID, COUNT(*) AS TOTAL FROM ORDERS
+    -> GROUP BY CUSTOMERID ;
++------------+-------+
+| CUSTOMERID | TOTAL |
++------------+-------+
+|          1 |     1 |
+|          2 |     1 |
+|          3 |     1 |
++------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT ORDERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL FROM ORDERS
+    -> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> GROUP BY CUSTOMERID;
++------------+--------------+-------+
+| CUSTOMERID | CUSTOMERNAME | TOTAL |
++------------+--------------+-------+
+|          1 | Alfreds      |     1 |
+|          2 | Ana Trujillo |     1 |
+|          3 | Antonio      |     1 |
++------------+--------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT ORDERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL FROM ORDERS
+    -> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> GROUP BY CUSTOMERID
+    -> HAVING(COUNT(*) > 1);
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM ORDERS;
++---------+------------+------------+
+| OrderID | CustomerID | OrderDate  |
++---------+------------+------------+
+|       1 |          1 | 2023-01-01 |
+|       2 |          2 | 2023-01-02 |
+|       3 |          3 | 2023-01-03 |
++---------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCTS;
++-----------+-------------+-------+
+| ProductID | ProductName | Price |
++-----------+-------------+-------+
+|         1 | Apples      |  1.00 |
+|         2 | Oranges     |  2.00 |
+|         3 | Bananas     |  1.50 |
++-----------+-------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE TABLE PRODUCTS
+    -> SET PRICE = 2.50
+    -> WHERE PRODUCTNAME = 'ORANGE';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE PRODUCTS
+SET PRICE = 2.50
+WHERE PRODUCTNAME = 'ORANGE'' at line 1
+mysql> UPDATE PRODUCTS
+    -> SET PRICE = 2.50
+    -> WHERE PRODUCTNAME = 'ORANGE';
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> SELECT * FROM PRODUCTS;
++-----------+-------------+-------+
+| ProductID | ProductName | Price |
++-----------+-------------+-------+
+|         1 | Apples      |  1.00 |
+|         2 | Oranges     |  2.00 |
+|         3 | Bananas     |  1.50 |
++-----------+-------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE PRODUCTS
+    -> SET PRICE = 2.50
+    -> WHERE PRODUCTNAME = 'ORANGES';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM PRODUCTS;
++-----------+-------------+-------+
+| ProductID | ProductName | Price |
++-----------+-------------+-------+
+|         1 | Apples      |  1.00 |
+|         2 | Oranges     |  2.50 |
+|         3 | Bananas     |  1.50 |
++-----------+-------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++------------+--------------+-------------+---------+
+| CustomerID | CustomerName | ContactName | Country |
++------------+--------------+-------------+---------+
+|          1 | Alfreds      | Maria       | Germany |
+|          2 | Ana Trujillo | Ana         | Mexico  |
+|          3 | Antonio      | Antonio     | Mexico  |
++------------+--------------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CUSTOMERS
+    -> ^C
+mysql> INSERT INTO CUSTOMERS VALUES
+    -> (4, 'JOHN', 'MACHATHI', 'GERMANY');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++------------+--------------+-------------+---------+
+| CustomerID | CustomerName | ContactName | Country |
++------------+--------------+-------------+---------+
+|          1 | Alfreds      | Maria       | Germany |
+|          2 | Ana Trujillo | Ana         | Mexico  |
+|          3 | Antonio      | Antonio     | Mexico  |
+|          4 | JOHN         | MACHATHI    | GERMANY |
++------------+--------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT COUNTRY, CONCAT(CUSTOMERNAME, CONTACTNAME) AS CUSTOMERS
+    -> FROM CUSTOMERS
+    -> GROUP BY COUNTRY
+    -> HAVING(COUNT(*) > 1);
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'info.CUSTOMERS.CustomerName' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT COUNTRY, GROUP_CONCAT(CUSTOMERNAME, CONTACTNAME) AS CUSTOMERS
+    -> FROM CUSTOMERS
+    -> GROUP BY COUNTRY
+    -> HAVING(COUNT(*) > 1);
++---------+--------------------------------+
+| COUNTRY | CUSTOMERS                      |
++---------+--------------------------------+
+| Germany | AlfredsMaria,JOHNMACHATHI      |
+| Mexico  | Ana TrujilloAna,AntonioAntonio |
++---------+--------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++------------+--------------+-------------+---------+
+| CustomerID | CustomerName | ContactName | Country |
++------------+--------------+-------------+---------+
+|          1 | Alfreds      | Maria       | Germany |
+|          2 | Ana Trujillo | Ana         | Mexico  |
+|          3 | Antonio      | Antonio     | Mexico  |
+|          4 | JOHN         | MACHATHI    | GERMANY |
++------------+--------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM ORDERS;
++---------+------------+------------+
+| OrderID | CustomerID | OrderDate  |
++---------+------------+------------+
+|       1 |          1 | 2023-01-01 |
+|       2 |          2 | 2023-01-02 |
+|       3 |          3 | 2023-01-03 |
++---------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME FROM ORDERS
+    -> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> GROUP BY CUSTOMERID
+    -> CUSTOMERID NOT IN ORDERS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CUSTOMERID NOT IN ORDERS' at line 5
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME FROM ORDERS
+    -> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> GROUP BY CUSTOMERID
+    -> WHERE CUSTOMERID IS NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE CUSTOMERID IS NULL' at line 5
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME FROM ORDERS
+    -> LEFT JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> GROUP BY CUSTOMERID
+    -> WHERE CUSTOMERID IS NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE CUSTOMERID IS NULL' at line 5
+mysql> SELECT ORDERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL FROM ORDERS
+    ->     -> JOIN CUSTOMERS ON
+    ->     -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    ->     -> GROUP BY CUSTOMERID
+    ->     -> HAVING(COUNT(*) < 1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> GROU' at line 2
+mysql> SELECT ORDERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME, COUNT(*) AS TOTAL FROM ORDERS
+    ->     ->LEFT JOIN CUSTOMERS ON
+    ->     -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    ->     -> GROUP BY CUSTOMERID
+    ->     -> HAVING(COUNT(*) < 1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '->LEFT JOIN CUSTOMERS ON
+    -> ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+    -> ' at line 2
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME FROM CUSTOMERS
+    -> LEFT JOIN ORDERS ON
+    -> CUSTOMERS.CUSTOMERID = ORDERS.CUSTOMERSID
+    -> WHERE ORDERS.ORDERID IS NULL;
+ERROR 1054 (42S22): Unknown column 'ORDERS.CUSTOMERSID' in 'on clause'
+mysql> SELECT CUSTOMERS.CUSTOMERID, CUSTOMERS.CUSTOMERNAME FROM CUSTOMERS
+    -> LEFT JOIN ORDERS ON
+    -> CUSTOMERS.CUSTOMERID = ORDERS.CUSTOMERID
+    -> WHERE ORDERS.ORDERID IS NULL;
++------------+--------------+
+| CUSTOMERID | CUSTOMERNAME |
++------------+--------------+
+|          4 | JOHN         |
++------------+--------------+
+1 row in set (0.00 sec)
+
+mysql>

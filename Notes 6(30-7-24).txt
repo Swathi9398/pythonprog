@@ -1,0 +1,517 @@
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 31
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| codegnan           |
+| information_schema |
+| librarydb          |
+| mysql              |
+| performance_schema |
+| product_details    |
+| sys                |
+| trail              |
++--------------------+
+8 rows in set (0.02 sec)
+
+mysql> -- NOT NULL
+mysql> USE CODEGNAN;
+Database changed
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_codegnan |
++--------------------+
+| employees          |
+| mytable            |
++--------------------+
+2 rows in set (0.03 sec)
+
+mysql> CREATE TABLE STUDENT(
+    -> ID INTEGER,
+    -> LASTNAME TEXT NOT NULL,
+    -> FIRSTNAME TEXT NOT NULL
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO STUDENT VALUES
+    -> (1, 'HANKS', 'PETER');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM STUDENT;
++------+----------+-----------+
+| ID   | LASTNAME | FIRSTNAME |
++------+----------+-----------+
+|    1 | HANKS    | PETER     |
++------+----------+-----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO STUDENT VALUES
+    -> (NULL, 'JOHN', 'JAMES');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM STUDENT;
++------+----------+-----------+
+| ID   | LASTNAME | FIRSTNAME |
++------+----------+-----------+
+|    1 | HANKS    | PETER     |
+| NULL | JOHN     | JAMES     |
++------+----------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT
+    -> WHERE ID IS NULL;
++------+----------+-----------+
+| ID   | LASTNAME | FIRSTNAME |
++------+----------+-----------+
+| NULL | JOHN     | JAMES     |
++------+----------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT
+    -> WHERE ID IS NOT NULL;
++------+----------+-----------+
+| ID   | LASTNAME | FIRSTNAME |
++------+----------+-----------+
+|    1 | HANKS    | PETER     |
++------+----------+-----------+
+1 row in set (0.00 sec)
+
+mysql> -- DEFAULT CONSTARINT
+mysql> CREATE TABLE PERSONS(
+    -> ID INT NOT NULL,
+    -> NAME VARCHAR(45) NOT NULL,
+    -> AGE INT,
+    -> CITY VARCHAR(25) DEFAULT 'NEWYORK'
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DESC PERSONS;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | NO   |     | NULL    |       |
+| NAME  | varchar(45) | NO   |     | NULL    |       |
+| AGE   | int         | YES  |     | NULL    |       |
+| CITY  | varchar(25) | YES  |     | NEWYORK |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO PERSONS VALUES
+    -> (1, 'A', 15, 'USA'),
+    -> (2, 'B', 24, 'UK');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM PERSONS;
++----+------+------+------+
+| ID | NAME | AGE  | CITY |
++----+------+------+------+
+|  1 | A    |   15 | USA  |
+|  2 | B    |   24 | UK   |
++----+------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO PERSONS VALUES
+    -> (3, 'C', 15);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO PERSONS(ID, NAME, AGE) VALUES
+    -> (3, 'C', 15);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM PERSONS
+    -> ;
++----+------+------+---------+
+| ID | NAME | AGE  | CITY    |
++----+------+------+---------+
+|  1 | A    |   15 | USA     |
+|  2 | B    |   24 | UK      |
+|  3 | C    |   15 | NEWYORK |
++----+------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PERSONS
+    -> WHERE CITY IN ('USA', 'INDIA');
++----+------+------+------+
+| ID | NAME | AGE  | CITY |
++----+------+------+------+
+|  1 | A    |   15 | USA  |
++----+------+------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM PERSONS
+    -> WHERE CITY NOT IN(
+    -> 'USA');
++----+------+------+---------+
+| ID | NAME | AGE  | CITY    |
++----+------+------+---------+
+|  2 | B    |   24 | UK      |
+|  3 | C    |   15 | NEWYORK |
++----+------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO PERSONS(ID, NAME, AGE, CITY) VALUES
+    -> (4, 'D', 45, NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM PERSONS;
++----+------+------+---------+
+| ID | NAME | AGE  | CITY    |
++----+------+------+---------+
+|  1 | A    |   15 | USA     |
+|  2 | B    |   24 | UK      |
+|  3 | C    |   15 | NEWYORK |
+|  4 | D    |   45 | NULL    |
++----+------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> -- PRIMARY KEY
+mysql> CREATE TABLE PERSONS1(
+    -> ID INT PRIMARY KEY NOT NULL,
+    -> NAME VARCHAR(45) NOT NULL,
+    -> AGE INT,
+    -> CITY VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC PERSONS1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | NO   | PRI | NULL    |       |
+| NAME  | varchar(45) | NO   |     | NULL    |       |
+| AGE   | int         | YES  |     | NULL    |       |
+| CITY  | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO PERSONS1(ID, NAME, AGE, CITY)
+    -> VALUES
+    -> (1, 'ROBERT', 15, 'FLORIDA'),
+    -> (2, 'JOSEPH', 35, 'CALIFORNIA'),
+    -> (3, 'PETER', 40, 'ALSKA');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM PERSONS1;
++----+--------+------+------------+
+| ID | NAME   | AGE  | CITY       |
++----+--------+------+------------+
+|  1 | ROBERT |   15 | FLORIDA    |
+|  2 | JOSEPH |   35 | CALIFORNIA |
+|  3 | PETER  |   40 | ALSKA      |
++----+--------+------+------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO PERSONS1 VALUES
+    -> (1, 'JOHN', 15, 'NEWYORK');
+ERROR 1062 (23000): Duplicate entry '1' for key 'persons1.PRIMARY'
+mysql> SHOW ERRORS;
++-------+------+------------------------------------------------+
+| Level | Code | Message                                        |
++-------+------+------------------------------------------------+
+| Error | 1062 | Duplicate entry '1' for key 'persons1.PRIMARY' |
++-------+------+------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO PERSONS1 VALUES
+    -> (NULL, 'JONHY', 34, 'VARGINIYA');
+ERROR 1048 (23000): Column 'ID' cannot be null
+mysql> SHOW ERRORS;
++-------+------+----------------------------+
+| Level | Code | Message                    |
++-------+------+----------------------------+
+| Error | 1048 | Column 'ID' cannot be null |
++-------+------+----------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE PERSONS1
+    -> DROP PRIMARY KEY;
+Query OK, 3 rows affected (0.10 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM PERSONS1;
++----+--------+------+------------+
+| ID | NAME   | AGE  | CITY       |
++----+--------+------+------------+
+|  1 | ROBERT |   15 | FLORIDA    |
+|  2 | JOSEPH |   35 | CALIFORNIA |
+|  3 | PETER  |   40 | ALSKA      |
++----+--------+------+------------+
+3 rows in set (0.00 sec)
+
+mysql> DESC PERSONS1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | NO   |     | NULL    |       |
+| NAME  | varchar(45) | NO   |     | NULL    |       |
+| AGE   | int         | YES  |     | NULL    |       |
+| CITY  | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO PERSONS1 VALUES
+    -> (1, 'JOHN', 23, 'USA');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM PERSONS1;
++----+--------+------+------------+
+| ID | NAME   | AGE  | CITY       |
++----+--------+------+------------+
+|  1 | ROBERT |   15 | FLORIDA    |
+|  2 | JOSEPH |   35 | CALIFORNIA |
+|  3 | PETER  |   40 | ALSKA      |
+|  1 | JOHN   |   23 | USA        |
++----+--------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> -- WE HAVE DROPPED THE PRIMARY KY HENCE WE CAN ADD NULL VALUES AS WELL AS DUPLICATE VALUES IN THE ID
+mysql>
+mysql>
+mysql> -- UNIQUE
+mysql> CREATE TABLE SHIRTBRAND(
+    -> ID INTEGER,
+    -> BRANDNAME VARCHAR(30) UNIQUE,
+    -> SIZE VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC SHIRTBRAND;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ID        | int         | YES  |     | NULL    |       |
+| BRANDNAME | varchar(30) | YES  | UNI | NULL    |       |
+| SIZE      | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO SHIRTBRAND(ID, BRANDNAME, SIZE) VALUES
+    -> (1, 'RAYMOND', 30)
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO SHIRTBRAND(ID, BRANDNAME, SIZE) VALUES
+    -> (2, 'RAYMOND', 43);
+ERROR 1062 (23000): Duplicate entry 'RAYMOND' for key 'shirtbrand.BRANDNAME'
+mysql> SHOW ERRORS;
++-------+------+----------------------------------------------------------+
+| Level | Code | Message                                                  |
++-------+------+----------------------------------------------------------+
+| Error | 1062 | Duplicate entry 'RAYMOND' for key 'shirtbrand.BRANDNAME' |
++-------+------+----------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> -- AUTO_INCREMENT
+mysql> CREATE TABLE ANIMALS(
+    -> ID INT NOT NULL AUTO_INCREMENT,
+    -> NAME CHAR(30) NOT NULL,
+    -> PRIMARY KEY(ID)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC ANIMALS;
++-------+----------+------+-----+---------+----------------+
+| Field | Type     | Null | Key | Default | Extra          |
++-------+----------+------+-----+---------+----------------+
+| ID    | int      | NO   | PRI | NULL    | auto_increment |
+| NAME  | char(30) | NO   |     | NULL    |                |
++-------+----------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO ANIMALS(NAME) VALUES
+    -> ('TIGER'),
+    -> ('DOG'),
+    -> ('CAT'),
+    -> ('HORSE'),
+    -> ('LION')
+    -> ;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM ANIMALS;
++----+-------+
+| ID | NAME  |
++----+-------+
+|  1 | TIGER |
+|  2 | DOG   |
+|  3 | CAT   |
+|  4 | HORSE |
+|  5 | LION  |
++----+-------+
+5 rows in set (0.00 sec)
+
+mysql> -- CHECK
+mysql> CREATE TABLE PERSONS2 (
+    -> ID INT NOT NULL,
+    -> NAME VARCHAR(45) NOT NULL,
+    -> AGE INT CHECK(AGE>= 18)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DESC PERSONS2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | NO   |     | NULL    |       |
+| NAME  | varchar(45) | NO   |     | NULL    |       |
+| AGE   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO PERSONS2(ID, NAME, AGE) VALUES
+    -> (1, 'A', 28),
+    -> (2, 'B', 30);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM PERSONS2;
++----+------+------+
+| ID | NAME | AGE  |
++----+------+------+
+|  1 | A    |   28 |
+|  2 | B    |   30 |
++----+------+------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO PERSONS2(ID, NAME, AGE) VALUES
+    -> (3, 'C', 15);
+ERROR 3819 (HY000): Check constraint 'persons2_chk_1' is violated.
+mysql> SHOW ERROS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ERROS' at line 1
+mysql> INSERT INTO PERSONS2(ID, NAME, AGE) VALUES
+    -> (3, 'C', 15);
+ERROR 3819 (HY000): Check constraint 'persons2_chk_1' is violated.
+mysql> SHOW ERRORS;
++-------+------+------------------------------------------------+
+| Level | Code | Message                                        |
++-------+------+------------------------------------------------+
+| Error | 3819 | Check constraint 'persons2_chk_1' is violated. |
++-------+------+------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> -- FOREIGN KEY
+mysql> CREATE TABLE PERSONS3(
+    -> PERSON_ID INT NOT NULL PRIMARY KEY,
+    -> NAME VARCHAR(50),
+    -> AGE INT,
+    -> CITY VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC PERSONS3;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| PERSON_ID | int         | NO   | PRI | NULL    |       |
+| NAME      | varchar(50) | YES  |     | NULL    |       |
+| AGE       | int         | YES  |     | NULL    |       |
+| CITY      | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO PERSONS3(PERSON_ID, NAME, AGE, CITY) VALUES
+    -> (1,'A', 15, UK),
+    -> (2,'B', 25, 'USA'),
+    -> (3,'C', 18, 'AUS');
+ERROR 1054 (42S22): Unknown column 'UK' in 'field list'
+mysql> INSERT INTO PERSONS3(PERSON_ID, NAME, AGE, CITY) VALUES
+    -> (1,'A', 15, UK'),
+    '> ^C
+mysql> INSERT INTO PERSONS3(PERSON_ID, NAME, AGE, CITY) VALUES
+    -> (1,'A', 15, 'UK'),
+    -> (2,'B', 25, 'USA'),
+    -> (3,'C', 18, 'AUS');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM PERSONS3;
++-----------+------+------+------+
+| PERSON_ID | NAME | AGE  | CITY |
++-----------+------+------+------+
+|         1 | A    |   15 | UK   |
+|         2 | B    |   25 | USA  |
+|         3 | C    |   18 | AUS  |
++-----------+------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TBALE ORDERS(
+    -> ORDER_ID INT NOT NULL PRIMARY KEY,
+    -> ORDER_NUM INT NOT NULL,
+    -> PERSON_ID INT,
+    -> FOREIGN KEY(PERSON_ID) REFERENCES PERSONS3(PERSON_ID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TBALE ORDERS(
+ORDER_ID INT NOT NULL PRIMARY KEY,
+ORDER_NUM INT NOT NULL,
+PERSON_' at line 1
+mysql> CREATE TABLE ORDERS(
+    -> ORDER_ID INT NOT NULL PRIMARY KEY,
+    -> ORDER_NUM INT NOT NULL,
+    -> PERSON_ID INT,
+    -> FOREIGN KEY(PERSON_ID) REFERENCES PERSONS3(PERSON_ID)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DESC ORDERS;
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| ORDER_ID  | int  | NO   | PRI | NULL    |       |
+| ORDER_NUM | int  | NO   |     | NULL    |       |
+| PERSON_ID | int  | YES  | MUL | NULL    |       |
++-----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO ORDERS(ORDER_ID, ORDER_NUM, PERSON_ID) VALUES
+    -> (1, 5544, 2),,
+    -> ^C
+mysql> INSERT INTO ORDERS(ORDER_ID, ORDER_NUM, PERSON_ID) VALUES
+    -> (1, 5544, 2),
+    -> (2, 3233, 3),
+    -> (3, 2135, 2),
+    -> (4, 3654, 1);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO ORDERS(ORDER_ID, ORDER_NUM, PERSON_ID) VALUES
+    -> (5, 3245, 4);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`codegnan`.`orders`, CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`PERSON_ID`) REFERENCES `persons3` (`PERSON_ID`))
+mysql> SHOW ERRORS;
++-------+------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Level | Code | Message
+                                                  |
++-------+------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Error | 1452 | Cannot add or update a child row: a foreign key constraint fails (`codegnan`.`orders`, CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`PERSON_ID`) REFERENCES `persons3` (`PERSON_ID`)) |
++-------+------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> -- THERE IS NO PERSON_ID WITH VALUE 4 IN THE PERSONS3 TABLE
+mysql> SELECT * FROM ORDERS;
++----------+-----------+-----------+
+| ORDER_ID | ORDER_NUM | PERSON_ID |
++----------+-----------+-----------+
+|        1 |      5544 |         2 |
+|        2 |      3233 |         3 |
+|        3 |      2135 |         2 |
+|        4 |      3654 |         1 |
++----------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql>

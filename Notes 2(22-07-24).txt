@@ -1,0 +1,348 @@
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 22
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| codegnan           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.12 sec)
+
+mysql> USE CODEGNANA
+ERROR 1049 (42000): Unknown database 'codegnana'
+mysql> USE CODEGNAN
+Database changed
+mysql> SHOW TABLES
+    -> ;
++--------------------+
+| Tables_in_codegnan |
++--------------------+
+| employees          |
++--------------------+
+1 row in set (0.03 sec)
+
+mysql> DESC EMPLOYEES;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| EMP_ID    | char(5)     | YES  |     | NULL    |       |
+| FIRSTNAME | varchar(30) | YES  |     | NULL    |       |
+| LASTNAME  | varchar(30) | YES  |     | NULL    |       |
+| AGE       | int         | YES  |     | NULL    |       |
+| DOJ       | date        | YES  |     | NULL    |       |
+| ADDRESS   | tinytext    | YES  |     | NULL    |       |
+| DEPT      | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+-------------+------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS     | DEPT |
++--------+-----------+----------+------+------------+-------------+------+
+| E001   | JOHN      | DOE      |   30 | 2023-01-01 | 123 MAIN ST | IT   |
++--------+-----------+----------+------+------------+-------------+------+
+1 row in set (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMP_ID, FIRSTNAME, LASTNAME, AGE, DOJ, ADDRESS, DEPT)
+    -> VALUES
+    -> ('E001', 'JOHN', 'DOE', 30, '2023-01-01', '123 MAIN ST', 'IT'),
+    -> ('E002', 'JANE', 'SMITH', 25, '2023-02-15', '456 OAK ST', 'HR'),
+    -> ('E003', 'BOB', 'JONSON', 35, '2022-12-10', '789 PINE ST', 'FINANCE');
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+-------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS     | DEPT    |
++--------+-----------+----------+------+------------+-------------+---------+
+| E001   | JOHN      | DOE      |   30 | 2023-01-01 | 123 MAIN ST | IT      |
+| E001   | JOHN      | DOE      |   30 | 2023-01-01 | 123 MAIN ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST  | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST | FINANCE |
++--------+-----------+----------+------+------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEES LIMIT 1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+-------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS     | DEPT    |
++--------+-----------+----------+------+------------+-------------+---------+
+| E001   | JOHN      | DOE      |   30 | 2023-01-01 | 123 MAIN ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST  | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST | FINANCE |
++--------+-----------+----------+------+------------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEES
+    -> WHERE EM_ID = 'E002';
+ERROR 1054 (42S22): Unknown column 'EM_ID' in 'where clause'
+mysql> DELETE FROM EMPLOYEES
+    -> WHERE EMP_ID = 'E002';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+-------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS     | DEPT    |
++--------+-----------+----------+------+------------+-------------+---------+
+| E001   | JOHN      | DOE      |   30 | 2023-01-01 | 123 MAIN ST | IT      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST | FINANCE |
++--------+-----------+----------+------+------------+-------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEES
+    -> WHERE AGE > 30;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+-------------+------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS     | DEPT |
++--------+-----------+----------+------+------------+-------------+------+
+| E001   | JOHN      | DOE      |   30 | 2023-01-01 | 123 MAIN ST | IT   |
++--------+-----------+----------+------+------------+-------------+------+
+1 row in set (0.00 sec)
+
+mysql> -- TO DELETE ENTIRE RECORDS WE USE ->  DELETE FROM EMPLOYEES;
+mysql> DELETE FROM EMPLOYEES;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMP_ID, FIRSTNAME, LASTNAME, AGE, DOJ, ADDRESS, DEPT)
+    -> VALUES('E001', 'JOHN', 'DOE', 30, '2023-01-01', '123 MAIN ST', 'IT'),
+    -> ('E002', 'JANE', 'SMITH', 25, '2023-02-15', '456 OAK ST', 'HR'),
+    -> ('E003', 'BOB', 'JONSON', 35, '2022-12-10', '789 PINE ST', 'FINANCE');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+-------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS     | DEPT    |
++--------+-----------+----------+------+------------+-------------+---------+
+| E001   | JOHN      | DOE      |   30 | 2023-01-01 | 123 MAIN ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST  | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST | FINANCE |
++--------+-----------+----------+------+------------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES
+    -> SET ADDRESS = '259 SPARK ST'
+    -> WHERE EMP_ID = 'E001';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   30 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> -- LOCK
+mysql> SET TRANSACTION ISOLATION LEVEL READ COMMITED;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COMMITED' at line 1
+mysql> SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE EMP_ID = 'E001' FOR UPDATE;
++--------+-----------+----------+------+------------+--------------+------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT |
++--------+-----------+----------+------+------------+--------------+------+
+| E001   | JOHN      | DOE      |   30 | 2023-01-01 | 259 SPARK ST | IT   |
++--------+-----------+----------+------+------------+--------------+------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES
+    -> SET AGE = 35
+    -> WHERE EMP_ID = 'E001';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   35 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   35 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE EMP_ID = 'E001' FOR UPDATE;
++--------+-----------+----------+------+------------+--------------+------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT |
++--------+-----------+----------+------+------------+--------------+------+
+| E001   | JOHN      | DOE      |   35 | 2023-01-01 | 259 SPARK ST | IT   |
++--------+-----------+----------+------+------------+--------------+------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES
+    -> SET AGE = 36
+    -> WHERE EMP_ID = 'E001';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   36 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> -- ROLEBACK
+mysql> -- ROLLBACK
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> UPDATE EMPLOYEES
+    -> SET AGE = 45
+    -> WHERE EMP_ID = 'E001';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   45 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMP_ID, FIRSTNAME, LASTNAME, AGE, DOJ, ADDRESS, DEPT)
+    -> VALUES('E004', 'ALICE', 'JONSON', 33, '2023-01-01', '123 MAIN ST', 'IT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   45 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
+| E004   | ALICE     | JONSON   |   33 | 2023-01-01 | 123 MAIN ST  | IT      |
++--------+-----------+----------+------+------------+--------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   36 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> -- SAVEPOINT
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> UPDATE EMPLOYEES
+    -> SET AGE = 32
+    -> WHERE EMP_ID = 'E001';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   32 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SAVEPOINT MY_SAVEPOINT;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ROLLBACK TO SAVEPOINT MY_SAVEPOINT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   32 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   36 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.00 sec)

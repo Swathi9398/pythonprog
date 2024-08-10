@@ -1,0 +1,535 @@
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 27
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| codegnan           |
+| information_schema |
+| librarydb          |
+| mysql              |
+| performance_schema |
+| sys                |
+| trail              |
++--------------------+
+7 rows in set (0.03 sec)
+
+mysql> USE LIBRARYDB;
+Database changed
+mysql> DESC BOOKS;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| BOOK_ID          | int          | NO   | PRI | NULL    |       |
+| TITLE            | varchar(100) | YES  |     | NULL    |       |
+| AUTHOR           | varchar(50)  | YES  |     | NULL    |       |
+| GENRE            | varchar(50)  | YES  |     | NULL    |       |
+| PUBLICATION_YEAR | int          | YES  |     | NULL    |       |
+| PRICE            | decimal(8,2) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> SELECT * FROM BOOKS;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 |  9.99 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 |  9.99 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> -- COMPARISION OPERATOR
+mysql> SELECT * FROM BOOKS
+    -> WHERE GENRE = 'FICTION';
++---------+-----------------------+--------------+---------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE   | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+---------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION |             1968 |  9.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION |             1951 |  9.99 |
++---------+-----------------------+--------------+---------+------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE GENRE != 'FICTION';
++---------+-------+--------+-----------+------------------+-------+
+| BOOK_ID | TITLE | AUTHOR | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-------+--------+-----------+------------------+-------+
+|       3 | 1984  | GEORGE | DYSTOPIAN |             1949 | 12.99 |
++---------+-------+--------+-----------+------------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PRICE < 15.00;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 |  9.99 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 |  9.99 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PRICE > 20.00;
++---------+------------------+---------+---------+------------------+-------+
+| BOOK_ID | TITLE            | AUTHOR  | GENRE   | PUBLICATION_YEAR | PRICE |
++---------+------------------+---------+---------+------------------+-------+
+|       1 | THE GREAT GATSBY | F.SCOTT | FICTION |             1925 | 35.98 |
++---------+------------------+---------+---------+------------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PRICE <= 12.99;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 |  9.99 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 |  9.99 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PUBLICATION_YEAR >= 1949;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 |  9.99 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 |  9.99 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT GENRE) FROM BOOKS;
++-----------------------+
+| COUNT(DISTINCT GENRE) |
++-----------------------+
+|                     2 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> ORDER BY PUBLICATION_YEAR;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 35.98 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 |  9.99 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 |  9.99 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PUBLICATION_YEAR BETWEEN 1920 AND 1950;
++---------+------------------+---------+-----------+------------------+-------+
+| BOOK_ID | TITLE            | AUTHOR  | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+------------------+---------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY | F.SCOTT | FICTION   |             1925 | 35.98 |
+|       3 | 1984             | GEORGE  | DYSTOPIAN |             1949 | 12.99 |
++---------+------------------+---------+-----------+------------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PRICE NOT BETWEEN 11.0 AND 14.0;
++---------+-----------------------+--------------+---------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE   | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+---------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION |             1968 |  9.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION |             1951 |  9.99 |
++---------+-----------------------+--------------+---------+------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE GENRE IN('FICTION', 'SCIENCE FICTION');
++---------+-----------------------+--------------+---------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE   | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+---------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION |             1968 |  9.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION |             1951 |  9.99 |
++---------+-----------------------+--------------+---------+------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PUBLICATION_YEAR NOT IN (1925, 1949, 1977);
++---------+-----------------------+--------------+---------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE   | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+---------+------------------+-------+
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION |             1968 |  9.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION |             1951 |  9.99 |
++---------+-----------------------+--------------+---------+------------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PUBLICATION_YEAR IN(1925, 1949, 1977);
++---------+------------------+---------+-----------+------------------+-------+
+| BOOK_ID | TITLE            | AUTHOR  | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+------------------+---------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY | F.SCOTT | FICTION   |             1925 | 35.98 |
+|       3 | 1984             | GEORGE  | DYSTOPIAN |             1949 | 12.99 |
++---------+------------------+---------+-----------+------------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE GENRE NOT LIKE 'F%';
++---------+-------+--------+-----------+------------------+-------+
+| BOOK_ID | TITLE | AUTHOR | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-------+--------+-----------+------------------+-------+
+|       3 | 1984  | GEORGE | DYSTOPIAN |             1949 | 12.99 |
++---------+-------+--------+-----------+------------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WEHRE GENRE LIKE 'F%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GENRE LIKE 'F%'' at line 2
+mysql> SELECT * FROM BOOKS
+    -> WHERE GENRE LIKE 'F%';
++---------+-----------------------+--------------+---------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE   | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+---------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION |             1968 |  9.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION |             1951 |  9.99 |
++---------+-----------------------+--------------+---------+------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PUBLICATION_YEAR IS NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PUBLICATION_YEAR IS NOT NULL;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 |  9.99 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 |  9.99 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> -- LOGICAL OPERATIOR
+mysql> SELECT * FROM BOOKS
+    -> WHERE GENRE = 'FICTION' AND PRICE > 15.00;
++---------+------------------+---------+---------+------------------+-------+
+| BOOK_ID | TITLE            | AUTHOR  | GENRE   | PUBLICATION_YEAR | PRICE |
++---------+------------------+---------+---------+------------------+-------+
+|       1 | THE GREAT GATSBY | F.SCOTT | FICTION |             1925 | 35.98 |
++---------+------------------+---------+---------+------------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE GENRE = 'FICTION' AND PRICE > 65.00;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE GENRE = 'FICTION' OR PUBLICATION_YEAR = 1949;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 |  9.99 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 |  9.99 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE PRICE = 9.99 OR PRICE > 30.00;
++---------+-----------------------+--------------+---------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE   | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+---------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION |             1968 |  9.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION |             1951 |  9.99 |
++---------+-----------------------+--------------+---------+------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKS
+    -> WHERE NOT GENRE = 'FICTION';
++---------+-------+--------+-----------+------------------+-------+
+| BOOK_ID | TITLE | AUTHOR | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-------+--------+-----------+------------------+-------+
+|       3 | 1984  | GEORGE | DYSTOPIAN |             1949 | 12.99 |
++---------+-------+--------+-----------+------------------+-------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+___________________________________________________________ WARNINGS AND ERRORS________________________________________________________
+
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 28
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> -- WARNINGS
+mysql> SELECT 10/2;
++--------+
+| 10/2   |
++--------+
+| 5.0000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT 10/7;
++--------+
+| 10/7   |
++--------+
+| 1.4286 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SLEECT 10/0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SLEECT 10/0' at line 1
+mysql> SELECT 10/0;
++------+
+| 10/0 |
++------+
+| NULL |
++------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SHOW WARNING;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WARNING' at line 1
+mysql> SHOW WARNINGS;
++-------+------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Level | Code | Message
+                                      |
++-------+------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Error | 1064 | You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WARNING' at line 1 |
++-------+------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT 10/0;
++------+
+| 10/0 |
++------+
+| NULL |
++------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SHOW WARNINGS;
++---------+------+---------------+
+| Level   | Code | Message       |
++---------+------+---------------+
+| Warning | 1365 | Division by 0 |
++---------+------+---------------+
+1 row in set (0.00 sec)
+
+mysql> USE CODEGNAN;
+Database changed
+mysql> CREATE TABLE MYTABLE(
+    -> ID INT PRIMARY KEY,
+    -> NAME VARCHAR(5)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO MYTABLE(ID, NAME)
+    -> VALUES
+    -> (1, 'HELLOWORLD');
+ERROR 1406 (22001): Data too long for column 'NAME' at row 1
+mysql> SHOW ERRORS;
++-------+------+------------------------------------------+
+| Level | Code | Message                                  |
++-------+------+------------------------------------------+
+| Error | 1406 | Data too long for column 'NAME' at row 1 |
++-------+------+------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT 'HI' + 'HI';
++-------------+
+| 'HI' + 'HI' |
++-------------+
+|           0 |
++-------------+
+1 row in set, 2 warnings (0.00 sec)
+
+mysql> SHOW WARNINGS;
++---------+------+----------------------------------------+
+| Level   | Code | Message                                |
++---------+------+----------------------------------------+
+| Warning | 1292 | Truncated incorrect DOUBLE value: 'HI' |
+| Warning | 1292 | Truncated incorrect DOUBLE value: 'HI' |
++---------+------+----------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT 4 + 5;
++-------+
+| 4 + 5 |
++-------+
+|     9 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT HI + HI;
+ERROR 1054 (42S22): Unknown column 'HI' in 'field list'
+mysql> SELECT CONCAT('HI' + 'HI');
++---------------------+
+| CONCAT('HI' + 'HI') |
++---------------------+
+| 0                   |
++---------------------+
+1 row in set, 2 warnings (0.00 sec)
+
+mysql> SELECT CONCAT('HI', 'HI');
++--------------------+
+| CONCAT('HI', 'HI') |
++--------------------+
+| HIHI               |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONCAT('123ABC', 1);
++---------------------+
+| CONCAT('123ABC', 1) |
++---------------------+
+| 123ABC1             |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONCAT('123ABC', ' ', 12);
++---------------------------+
+| CONCAT('123ABC', ' ', 12) |
++---------------------------+
+| 123ABC 12                 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONCAT_WS(',', 123, 'ABC');
++----------------------------+
+| CONCAT_WS(',', 123, 'ABC') |
++----------------------------+
+| 123,ABC                    |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONCAT_WS(' ', 123, 'ABC');
++----------------------------+
+| CONCAT_WS(' ', 123, 'ABC') |
++----------------------------+
+| 123 ABC                    |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LOWER('ABC');
++--------------+
+| LOWER('ABC') |
++--------------+
+| abc          |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LOWER('AcB');
++--------------+
+| LOWER('AcB') |
++--------------+
+| acb          |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LOWER('acv');
++--------------+
+| LOWER('acv') |
++--------------+
+| acv          |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT UPPER('abc');
++--------------+
+| UPPER('abc') |
++--------------+
+| ABC          |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT UPPER(12333);
++--------------+
+| UPPER(12333) |
++--------------+
+| 12333        |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> -- LENGTH AND SUBSTRING
+mysql> SELECT LENGTH('YOGESHWAR');
++---------------------+
+| LENGTH('YOGESHWAR') |
++---------------------+
+|                   9 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUBSTRING('YOGESHWAR', 1, 5);
++------------------------------+
+| SUBSTRING('YOGESHWAR', 1, 5) |
++------------------------------+
+| YOGES                        |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> -- REVERSE AND REPLACE
+mysql> SELECT REVERSE('YOGI');
++-----------------+
+| REVERSE('YOGI') |
++-----------------+
+| IGOY            |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT REPLACE('YOGI', 'ME');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> -- LEFT AND RIGHT
+mysql> SELECT LEFT('YOGI', 2);
++-----------------+
+| LEFT('YOGI', 2) |
++-----------------+
+| YO              |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT RIGHT('YOGI', 2);
++------------------+
+| RIGHT('YOGI', 2) |
++------------------+
+| GI               |
++------------------+
+1 row in set (0.00 sec)
+
+mysql>

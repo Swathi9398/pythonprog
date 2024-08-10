@@ -1,0 +1,341 @@
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 25
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> -- WHERE CLAUSE
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| codegnan           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| trail              |
++--------------------+
+6 rows in set (0.02 sec)
+
+mysql> use CODEGNAN;
+Database changed
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_codegnan |
++--------------------+
+| employees          |
++--------------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT * FROM EMPLOYEES
+    -> ;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   36 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYES
+    -> WHERE AGE = 25;
+ERROR 1146 (42S02): Table 'codegnan.employes' doesn't exist
+mysql> SELECT * FROM EMPLOYES
+    -> ^C
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE AGE = 25;
++--------+-----------+----------+------+------------+------------+------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS    | DEPT |
++--------+-----------+----------+------+------------+------------+------+
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST | HR   |
++--------+-----------+----------+------+------------+------------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE DEPT = 'IT';
++--------+-----------+----------+------+------------+--------------+------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT |
++--------+-----------+----------+------+------------+--------------+------+
+| E001   | JOHN      | DOE      |   36 | 2023-01-01 | 259 SPARK ST | IT   |
++--------+-----------+----------+------+------------+--------------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE DEPT = 'FINANCE' AND AGE = 35;
++--------+-----------+----------+------+------------+-------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS     | DEPT    |
++--------+-----------+----------+------+------------+-------------+---------+
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST | FINANCE |
++--------+-----------+----------+------+------------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FORM EMPLOYEES
+    -> WHERE DEPT = 'IT' OR AGE = 25;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FORM EMPLOYEES
+WHERE DEPT = 'IT' OR AGE = 25' at line 1
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE DEPT = 'IT' OR AGE = 25;
++--------+-----------+----------+------+------------+--------------+------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT |
++--------+-----------+----------+------+------------+--------------+------+
+| E001   | JOHN      | DOE      |   36 | 2023-01-01 | 259 SPARK ST | IT   |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR   |
++--------+-----------+----------+------+------------+--------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE AGE BETWEEN 20 AND 40;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   36 | 2023-01-01 | 259 SPARK ST | IT      |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> -- select * from EMPLOYEES
+mysql> -- select * from EMPLOYEES
+mysql> SELECT * FOMR EMPLOYEES
+    -> WHERE FIRSTNAME = 'J%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOMR EMPLOYEES
+WHERE FIRSTNAME = 'J%'' at line 1
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE FIRSTNAME = 'J%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FOMR EMPLOYEES
+    -> WHERE FIRSTNAME LIKE 'J%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOMR EMPLOYEES
+WHERE FIRSTNAME LIKE 'J%'' at line 1
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE FIRSTNAME LIKE 'J%';
++--------+-----------+----------+------+------------+--------------+------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT |
++--------+-----------+----------+------+------------+--------------+------+
+| E001   | JOHN      | DOE      |   36 | 2023-01-01 | 259 SPARK ST | IT   |
+| E002   | JANE      | SMITH    |   25 | 2023-02-15 | 456 OAK ST   | HR   |
++--------+-----------+----------+------+------------+--------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE NOT BETWEEN 20 AND 30;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 20 AND 30' at line 2
+mysql> SELECT * FROM EMPLOYEES
+    -> WHERE AGE NOT BETWEEN 20 AND 30;
++--------+-----------+----------+------+------------+--------------+---------+
+| EMP_ID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS      | DEPT    |
++--------+-----------+----------+------+------------+--------------+---------+
+| E001   | JOHN      | DOE      |   36 | 2023-01-01 | 259 SPARK ST | IT      |
+| E003   | BOB       | JONSON   |   35 | 2022-12-10 | 789 PINE ST  | FINANCE |
++--------+-----------+----------+------+------------+--------------+---------+
+2 rows in set (0.00 sec)
+
+___________________________________________________________________ NEW TABLE CREATION IN NEW CMD ________________________________________________________
+
+
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>MYSQL -U ROOT -P
+MYSQL: [ERROR] MYSQL: option '-P' requires an argument.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 26
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABSE LIBRARYDB;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABSE LIBRARYDB' at line 1
+mysql> CREATE DATABASE LIBRARYDB;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| codegnan           |
+| information_schema |
+| librarydb          |
+| mysql              |
+| performance_schema |
+| sys                |
+| trail              |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> USE LIBRARYDB;
+Database changed
+mysql> CREATE TABLE BOOKS(
+    -> BOOK_ID INT PRIMARY KEY,
+    -> TITLE VARCHAR(100),
+    -> AUTHOR VARCHAR(50),
+    -> GENRE VARCHAR(50),
+    -> PUBLICATION_YEAR INT,
+    -> PRICE DECIMAL(0, 2)
+    -> );
+ERROR 1427 (42000): For float(M,D), double(M,D) or decimal(M,D), M must be >= D (column 'PRICE').
+mysql> CREATE TABLE BOOKS(
+    -> BOOK_ID INT PRIMARY KEY,
+    -> TITLE VARCHAR(100),
+    -> AUTHOR VARCHAR(50),
+    -> GENRE VARCHAR(50),
+    -> PUBLICATION_YEAR INT,
+    -> PRICE DECIMAL(8, 2)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> DESC LIBRARYDB;
+ERROR 1146 (42S02): Table 'librarydb.librarydb' doesn't exist
+mysql> DESC BOOKS;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| BOOK_ID          | int          | NO   | PRI | NULL    |       |
+| TITLE            | varchar(100) | YES  |     | NULL    |       |
+| AUTHOR           | varchar(50)  | YES  |     | NULL    |       |
+| GENRE            | varchar(50)  | YES  |     | NULL    |       |
+| PUBLICATION_YEAR | int          | YES  |     | NULL    |       |
+| PRICE            | decimal(8,2) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> INSERT INTO BOOKS(BOOK_ID, TITLE, AUTHOR, GENER, PUBLICATION_YEAR, PRICE)
+    -> VALUES
+    -> (1, 'THE GREAT GATSBY', 'F.SCOTT', 'FICTION', 1925, 15.99),
+    -> (2, 'TO KILL MOCKINGBIRD', 'HAPPER LEE', 'FICTION', 1968, 12.50),
+    -> (3, '1984', 'GEORGE', 'DYSTOPIAN', 1949, 10.99),
+    -> (4, 'THE CATHER IN THE RAY', 'J.D.SALINGER', 'FICTION', 1951, 14.75);
+ERROR 1054 (42S22): Unknown column 'GENER' in 'field list'
+mysql> INSERT INTO BOOKS(BOOK_ID, TITLE, AUTHOR, GENRE, PUBLICATION_YEAR, PRICE)
+    -> VALUES
+    -> (1, 'THE GREAT GATSBY', 'F.SCOTT', 'FICTION', 1925, 15.99),
+    -> (2, 'TO KILL MOCKINGBIRD', 'HAPPER LEE', 'FICTION', 1968, 12.50),
+    -> (3, '1984', 'GEORGE', 'DYSTOPIAN', 1949, 10.99),
+    -> (4, 'THE CATHER IN THE RAY', 'J.D.SALINGER', 'FICTION', 1951, 14.75);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM BOOKS;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 15.99 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 | 12.50 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 10.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 | 14.75 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> -- ARITHEMATIC OPERATORS
+mysql> UPDATE BOOKS
+    -> SET PRICE = PRICE + 5.0;
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> SELECT * FROM BOOKS;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 20.99 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 | 17.50 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 15.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 | 19.75 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE BOOKS
+    -> SET PRICE = PRICE - 3.0
+    -> WHERE PUBLICATION < 1960;
+ERROR 1054 (42S22): Unknown column 'PUBLICATION' in 'where clause'
+mysql> UPDATE BOOKS
+    -> SET PRICE = PRICE - 3.0
+    -> WHERE PUBLICATION_YEAR < 1960;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> SELECT * FROM BOOKS
+    -> ;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 17.99 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 | 17.50 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 | 16.75 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE BOOKS
+    -> SET PRICE = PRICE * 2.0
+    -> WHERE GENRE = 'FICTION';
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> SELECT * FROM BOOKS;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 | 35.00 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 | 33.50 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE BOOKS
+    -> SET PRICE = PRICE / 2.0
+    -> WHERE PUBLICATION_YEAR > 1950;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM BOOKS;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 | 17.50 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 | 16.75 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE BOOKS
+    -> SET PRICE = 9.99
+    -> WHERE BOOK_ID%2 = 0;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM BOOKS
+    -> ;
++---------+-----------------------+--------------+-----------+------------------+-------+
+| BOOK_ID | TITLE                 | AUTHOR       | GENRE     | PUBLICATION_YEAR | PRICE |
++---------+-----------------------+--------------+-----------+------------------+-------+
+|       1 | THE GREAT GATSBY      | F.SCOTT      | FICTION   |             1925 | 35.98 |
+|       2 | TO KILL MOCKINGBIRD   | HAPPER LEE   | FICTION   |             1968 |  9.99 |
+|       3 | 1984                  | GEORGE       | DYSTOPIAN |             1949 | 12.99 |
+|       4 | THE CATHER IN THE RAY | J.D.SALINGER | FICTION   |             1951 |  9.99 |
++---------+-----------------------+--------------+-----------+------------------+-------+
+4 rows in set (0.00 sec)

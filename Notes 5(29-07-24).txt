@@ -1,0 +1,222 @@
+_____________________________________________________________STRING FUNCATIONS________________________________________________________________
+
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 30
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| codegnan           |
+| information_schema |
+| librarydb          |
+| mysql              |
+| performance_schema |
+| product_details    |
+| sys                |
+| trail              |
++--------------------+
+8 rows in set (0.04 sec)
+
+mysql> USE PRODUCT_DETAILS;
+Database changed
+mysql> DESC PRODUCT_DETAILS;
+ERROR 1146 (42S02): Table 'product_details.product_details' doesn't exist
+mysql> SELECT * FROM PRODUCT;
+ERROR 1146 (42S02): Table 'product_details.product' doesn't exist
+mysql> SELECT * FROM PRODUCTS;
++------------+--------------+-------------+---------+
+| PRODUCT_ID | PRODUCT_NAME | CATEGORY    | PRICE   |
++------------+--------------+-------------+---------+
+|          1 | LAPTOP       | ELECTRONICS | 1200.00 |
++------------+--------------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO PRODUCTS(PRODUCT_ID, PRODUCT_NAME, CATRGORY, PRICE)
+    -> VALUES
+    -> (2, 'HEADPHONES', 'ELECTRONICS', 99.99),
+    -> (3, 'T-SHIRT', 'APPAREL', 19.99),
+    -> (4, 'COFFEE MAKER', 'APPLICANCES', 49.99);
+ERROR 1054 (42S22): Unknown column 'CATRGORY' in 'field list'
+mysql> INSERT INTO PRODUCTS(PRODUCT_ID, PRODUCT_NAME, CATEGORY, PRICE)
+    -> VALUES
+    -> (2, 'HEADPHONES', 'ELECTRONICS', 99.99),
+    -> (3, 'T-SHIRT', 'APPAREL', 19.99),
+    -> (4, 'COFFEE MAKER', 'APPLICANCES', 49.99);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM PRODUCTS;
++------------+--------------+-------------+---------+
+| PRODUCT_ID | PRODUCT_NAME | CATEGORY    | PRICE   |
++------------+--------------+-------------+---------+
+|          1 | LAPTOP       | ELECTRONICS | 1200.00 |
+|          2 | HEADPHONES   | ELECTRONICS |   99.99 |
+|          3 | T-SHIRT      | APPAREL     |   19.99 |
+|          4 | COFFEE MAKER | APPLICANCES |   49.99 |
++------------+--------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> -- ALIAS
+mysql> SELECT PRODUCT_NAME AS 'PRODUCT',
+    -> CATEGORY AS 'PRODUCT CATEGORY',
+    -> PRICE AS 'PRODUCT PRICE',
+    -> FROM PRODUCTS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM PRODUCTS' at line 4
+mysql> SELECT PRODUCT_NAME AS 'PRODUCT',
+    -> CATEGORY AS 'PRODUCT CATEGORY',
+    -> PRICE AS 'PRODUCT PRICE'
+    -> FROM PRODUCTS;
++--------------+------------------+---------------+
+| PRODUCT      | PRODUCT CATEGORY | PRODUCT PRICE |
++--------------+------------------+---------------+
+| LAPTOP       | ELECTRONICS      |       1200.00 |
+| HEADPHONES   | ELECTRONICS      |         99.99 |
+| T-SHIRT      | APPAREL          |         19.99 |
+| COFFEE MAKER | APPLICANCES      |         49.99 |
++--------------+------------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> -- CONCAT
+mysql> SELECT CONCAT(PRODUCT_NAME, CATEGORY) AS 'CONCATTENATED'
+    -> FORM PRODUCTS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FORM PRODUCTS' at line 2
+mysql> SELECT CONCAT(PRODUCT_NAME, CATEGORY) AS 'CONCATTENATED'
+    -> FROM PRODUCTS;
++-------------------------+
+| CONCATTENATED           |
++-------------------------+
+| LAPTOPELECTRONICS       |
+| HEADPHONESELECTRONICS   |
+| T-SHIRTAPPAREL          |
+| COFFEE MAKERAPPLICANCES |
++-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> -- CONCAT_WS
+mysql> SELECT CONCAT_WS(',', PRODUCT_NAME, CATEGORY) AS 'CONCATENATED SEPARATOR'
+    -> FROM PRODUCTS;
++--------------------------+
+| CONCATENATED SEPARATOR   |
++--------------------------+
+| LAPTOP,ELECTRONICS       |
+| HEADPHONES,ELECTRONICS   |
+| T-SHIRT,APPAREL          |
+| COFFEE MAKER,APPLICANCES |
++--------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CONCAT_WS(', ', PRODUCT_NAME, CATEGORY) AS 'CONCATENATED SEPARATOR'
+    -> FROM PRODUCTS;
++---------------------------+
+| CONCATENATED SEPARATOR    |
++---------------------------+
+| LAPTOP, ELECTRONICS       |
+| HEADPHONES, ELECTRONICS   |
+| T-SHIRT, APPAREL          |
+| COFFEE MAKER, APPLICANCES |
++---------------------------+
+4 rows in set (0.00 sec)
+
+mysql> -- LOWER & UPPER
+mysql> SELECT LOWER(PRODUCT_NAME) AS 'LOWER CASE'
+    -> FROM PRODUCTS;
++--------------+
+| LOWER CASE   |
++--------------+
+| laptop       |
+| headphones   |
+| t-shirt      |
+| coffee maker |
++--------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT UPPER(CATEGORY) AS 'UPPER CASE'
+    -> FROM PRODUCTS;
++-------------+
+| UPPER CASE  |
++-------------+
+| ELECTRONICS |
+| ELECTRONICS |
+| APPAREL     |
+| APPLICANCES |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT UPPER(CATEGORY) AS 'UPPER CASE',
+    -> LOWER(PRODUCT_NAME) AS 'LOWER CASE'
+    -> FROM PRODUCTS;
++-------------+--------------+
+| UPPER CASE  | LOWER CASE   |
++-------------+--------------+
+| ELECTRONICS | laptop       |
+| ELECTRONICS | headphones   |
+| APPAREL     | t-shirt      |
+| APPLICANCES | coffee maker |
++-------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> -- LENGTH AND SUBSTRING
+mysql> SELECT PRODUCT_NAME,
+    -> LENGTH(PRODUCT_NAME) AS 'LENGTH',
+    -> SUBSTRING(PRODUCT_NAME, 2, 3) AS 'SUBSTRING'
+    -> FROM PRODUCTS;
++--------------+--------+-----------+
+| PRODUCT_NAME | LENGTH | SUBSTRING |
++--------------+--------+-----------+
+| LAPTOP       |      6 | APT       |
+| HEADPHONES   |     10 | EAD       |
+| T-SHIRT      |      7 | -SH       |
+| COFFEE MAKER |     12 | OFF       |
++--------------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> -- REVERSE AND REPLACE
+mysql> SELECT REVERSE(PRODUCT_NAME) AS 'REVESE',
+    -> REPLACE(CATEGORY, 'ELECTRONICS', 'GADGETS') AS 'REPLACED'
+    -> FROM PRODUCTS;
++--------------+-------------+
+| REVESE       | REPLACED    |
++--------------+-------------+
+| POTPAL       | GADGETS     |
+| SENOHPDAEH   | GADGETS     |
+| TRIHS-T      | APPAREL     |
+| REKAM EEFFOC | APPLICANCES |
++--------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> -- LEFT AND RIGHT
+mysql> SELECT PRODUCT_NAME,
+    -> RIGHT(PRODUCT_NAME, 3) AS 'RIGHT',
+    -> LEFT(PRODUCT_NAME, 3) AS 'LEFT',
+    -> FROM PRODUCTS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM PRODUCTS' at line 4
+mysql> SELECT PRODUCT_NAME,
+    -> RIGHT(PRODUCT_NAME, 3) AS 'RIGHT',
+    -> LEFT(PRODUCT_NAME, 3) AS 'LEFT'
+    -> FROM PRODUCTS;
++--------------+-------+------+
+| PRODUCT_NAME | RIGHT | LEFT |
++--------------+-------+------+
+| LAPTOP       | TOP   | LAP  |
+| HEADPHONES   | NES   | HEA  |
+| T-SHIRT      | IRT   | T-S  |
+| COFFEE MAKER | KER   | COF  |
++--------------+-------+------+
+4 rows in set (0.00 sec)
+
+

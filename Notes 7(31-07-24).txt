@@ -1,0 +1,326 @@
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| codegnan           |
+| information_schema |
+| librarydb          |
+| mysql              |
+| performance_schema |
+| product_details    |
+| sys                |
+| trail              |
++--------------------+
+8 rows in set (0.17 sec)
+
+mysql> USE CODEGNAN;
+Database changed
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_codegnan |
++--------------------+
+| animals            |
+| employees          |
+| mytable            |
+| orders             |
+| persons            |
+| persons1           |
+| persons2           |
+| persons3           |
+| shirtbrand         |
+| student            |
++--------------------+
+10 rows in set (0.04 sec)
+
+mysql> CREATE TABLE PRODUCTS(
+    -> PRODUCT_ID INT PRIMARY KEY,
+    -> PRODUCT_NAME VARCHAR(50) NOT NULL,
+    -> CATEGORY VARCHAR(30) NOT NULL,
+    -> PRICE DECIMAL(10,2) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> DESC PRODUCTS;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| PRODUCT_ID   | int           | NO   | PRI | NULL    |       |
+| PRODUCT_NAME | varchar(50)   | NO   |     | NULL    |       |
+| CATEGORY     | varchar(30)   | NO   |     | NULL    |       |
+| PRICE        | decimal(10,2) | NO   |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> INSERT INTO PRODUCTS(PRODUCT_ID, PRODUCT_NAME, CATEGORY, PRICE) VALUES
+    -> (1, 'LAPTOP', 'ELECTRONICS', 1200.00),
+    -> (2, 'HEADPHONES', 'ELECTRONICS', 50.00),
+    -> (3, 'COFFEE MAKER', 'APPLICANCES', 80.00),
+    -> (4, 'RUNNING SHOES', 'CLOTHING', 75.00),
+    -> (5, 'BACKPACK', 'ACCESSORIES', 40.00);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM PRODUCSTS;
+ERROR 1146 (42S02): Table 'codegnan.producsts' doesn't exist
+mysql> SELECT * FROM PRODUCTS;
++------------+---------------+-------------+---------+
+| PRODUCT_ID | PRODUCT_NAME  | CATEGORY    | PRICE   |
++------------+---------------+-------------+---------+
+|          1 | LAPTOP        | ELECTRONICS | 1200.00 |
+|          2 | HEADPHONES    | ELECTRONICS |   50.00 |
+|          3 | COFFEE MAKER  | APPLICANCES |   80.00 |
+|          4 | RUNNING SHOES | CLOTHING    |   75.00 |
+|          5 | BACKPACK      | ACCESSORIES |   40.00 |
++------------+---------------+-------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> -- DISTINCT
+mysql> SELECT DISTINCT CATEGORY FROM PRODUCTS;
++-------------+
+| CATEGORY    |
++-------------+
+| ELECTRONICS |
+| APPLICANCES |
+| CLOTHING    |
+| ACCESSORIES |
++-------------+
+4 rows in set (0.01 sec)
+
+mysql> -- ORDER BY
+mysql> SELECT * FROM PRODUCTS
+    -> ORDER BY PRICE;
++------------+---------------+-------------+---------+
+| PRODUCT_ID | PRODUCT_NAME  | CATEGORY    | PRICE   |
++------------+---------------+-------------+---------+
+|          5 | BACKPACK      | ACCESSORIES |   40.00 |
+|          2 | HEADPHONES    | ELECTRONICS |   50.00 |
+|          4 | RUNNING SHOES | CLOTHING    |   75.00 |
+|          3 | COFFEE MAKER  | APPLICANCES |   80.00 |
+|          1 | LAPTOP        | ELECTRONICS | 1200.00 |
++------------+---------------+-------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCTS
+    -> ORDER BY PRICE DESC;
++------------+---------------+-------------+---------+
+| PRODUCT_ID | PRODUCT_NAME  | CATEGORY    | PRICE   |
++------------+---------------+-------------+---------+
+|          1 | LAPTOP        | ELECTRONICS | 1200.00 |
+|          3 | COFFEE MAKER  | APPLICANCES |   80.00 |
+|          4 | RUNNING SHOES | CLOTHING    |   75.00 |
+|          2 | HEADPHONES    | ELECTRONICS |   50.00 |
+|          5 | BACKPACK      | ACCESSORIES |   40.00 |
++------------+---------------+-------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCTS
+    -> ORDER BY PRICE AND PRODUCT_NAME;
++------------+---------------+-------------+---------+
+| PRODUCT_ID | PRODUCT_NAME  | CATEGORY    | PRICE   |
++------------+---------------+-------------+---------+
+|          1 | LAPTOP        | ELECTRONICS | 1200.00 |
+|          2 | HEADPHONES    | ELECTRONICS |   50.00 |
+|          3 | COFFEE MAKER  | APPLICANCES |   80.00 |
+|          4 | RUNNING SHOES | CLOTHING    |   75.00 |
+|          5 | BACKPACK      | ACCESSORIES |   40.00 |
++------------+---------------+-------------+---------+
+5 rows in set, 5 warnings (0.01 sec)
+
+mysql> -- LIMIT
+mysql> SELECT * FROM PRODUCTS LIMIT 2;
++------------+--------------+-------------+---------+
+| PRODUCT_ID | PRODUCT_NAME | CATEGORY    | PRICE   |
++------------+--------------+-------------+---------+
+|          1 | LAPTOP       | ELECTRONICS | 1200.00 |
+|          2 | HEADPHONES   | ELECTRONICS |   50.00 |
++------------+--------------+-------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> -- LIKE
+mysql> SELECT * FROM PRODUCTS
+    -> WHERE PRODUCT_NAME LIKE 'L%';
++------------+--------------+-------------+---------+
+| PRODUCT_ID | PRODUCT_NAME | CATEGORY    | PRICE   |
++------------+--------------+-------------+---------+
+|          1 | LAPTOP       | ELECTRONICS | 1200.00 |
++------------+--------------+-------------+---------+
+1 row in set (0.01 sec)
+
+mysql> SELECT * FROM PRODUCTS
+    -> WHERE CATEGORY LIKE '%ELECTRONICS%';
++------------+--------------+-------------+---------+
+| PRODUCT_ID | PRODUCT_NAME | CATEGORY    | PRICE   |
++------------+--------------+-------------+---------+
+|          1 | LAPTOP       | ELECTRONICS | 1200.00 |
+|          2 | HEADPHONES   | ELECTRONICS |   50.00 |
++------------+--------------+-------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCTS
+    -> WHERE PRODUCT_NAME LIKE '%S';
++------------+---------------+-------------+-------+
+| PRODUCT_ID | PRODUCT_NAME  | CATEGORY    | PRICE |
++------------+---------------+-------------+-------+
+|          2 | HEADPHONES    | ELECTRONICS | 50.00 |
+|          4 | RUNNING SHOES | CLOTHING    | 75.00 |
++------------+---------------+-------------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+
+______________________________________________________________AGGREGATE FUNCTIONS______________________________________________________________________
+
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Yogi>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE SALES;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> USE SALES;
+Database changed
+mysql> CREATE TABLE ORDERS(
+    -> ORDER_ID INT PRIMARY KEY,
+    -> PRODUCT_NAME VARCHAR(40),
+    -> QUANTITY INT,
+    -> PRICE DECIMAL(8,2),
+    -> ORDER_DATE DATE
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO ORDERS VALUES
+    -> (1, 'WIDGET', 10, 20.00, '2024-01,01'),
+    -> (2, 'GADGET', 5, 15.00, '2024-01,02'),
+    -> (3, 'WIDGET', 8, 25.00, '2024-01,03'),
+    -> (4, 'DEVICE', 12, 10.00, '2024-01,03'),
+    -> (5, 'GADGET', 6, 18.00, '2024-01,04');
+Query OK, 5 rows affected, 5 warnings (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 5
+
+mysql> SELECT * FROM ORDERS;
++----------+--------------+----------+-------+------------+
+| ORDER_ID | PRODUCT_NAME | QUANTITY | PRICE | ORDER_DATE |
++----------+--------------+----------+-------+------------+
+|        1 | WIDGET       |       10 | 20.00 | 2024-01-01 |
+|        2 | GADGET       |        5 | 15.00 | 2024-01-02 |
+|        3 | WIDGET       |        8 | 25.00 | 2024-01-03 |
+|        4 | DEVICE       |       12 | 10.00 | 2024-01-03 |
+|        5 | GADGET       |        6 | 18.00 | 2024-01-04 |
++----------+--------------+----------+-------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM ORDERS;
++----------+
+| COUNT(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.04 sec)
+
+mysql> SELECT COUNT(*) AS TOTAL_ORDERS FROM ORDERS;
++--------------+
+| TOTAL_ORDERS |
++--------------+
+|            5 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> -- GROUP BY
+mysql> SELECT PRODUCT_NAME, COUNT(*) AS TOTAL_ORDERS
+    -> FROM ORDERS
+    -> GROUP BY PRODUCT_NAME;
++--------------+--------------+
+| PRODUCT_NAME | TOTAL_ORDERS |
++--------------+--------------+
+| WIDGET       |            2 |
+| GADGET       |            2 |
+| DEVICE       |            1 |
++--------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> -- MIN AND MAX
+mysql> SELECT MIN(QUANTITY) AS MIN_QUANTITY,
+    -> MAX(QUANTITY) AS MAX_QUANTITY
+    -> FROM ORDERS;
++--------------+--------------+
+| MIN_QUANTITY | MAX_QUANTITY |
++--------------+--------------+
+|            5 |           12 |
++--------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT PRODUCT_NAME.
+    -> ^C
+mysql> SELECT PRODUCT_NAME,
+    -> MIN(PRICE) AS MIN_PRICE,
+    -> MAX(PRICE) AS MAX_PRICE
+    -> FROM ORDERS
+    -> GROUP BY PRODUCT_NAME;
++--------------+-----------+-----------+
+| PRODUCT_NAME | MIN_PRICE | MAX_PRICE |
++--------------+-----------+-----------+
+| WIDGET       |     20.00 |     25.00 |
+| GADGET       |     15.00 |     18.00 |
+| DEVICE       |     10.00 |     10.00 |
++--------------+-----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> -- SUM AND AVG
+mysql> SELECT SUM(QUANTITY) AS TOTAL_QUANTITY,
+    -> AVG(PRICE) AS AVG_PRICE
+    -> FROM ORDERS;
++----------------+-----------+
+| TOTAL_QUANTITY | AVG_PRICE |
++----------------+-----------+
+|             41 | 17.600000 |
++----------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> -- GROUP BY WITH SUM AND AVG
+mysql> SELECT PRODUCT_NAME,
+    -> SUM(QUANTITY) AS TOTAL_QUANTITY,
+    -> AVG(PRICE) AS AVERAGE_PRICE
+    -> FROM ORDERS
+    -> GROUP BY PRODUCT_NAME ;
++--------------+----------------+---------------+
+| PRODUCT_NAME | TOTAL_QUANTITY | AVERAGE_PRICE |
++--------------+----------------+---------------+
+| WIDGET       |             18 |     22.500000 |
+| GADGET       |             11 |     16.500000 |
+| DEVICE       |             12 |     10.000000 |
++--------------+----------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql>

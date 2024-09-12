@@ -101,7 +101,6 @@ else:
  
  
  #write a program to find the greatest of 3 numbers 
-
 a=int(input("Enter a value:"))
 b=int(input("Enter b value:"))
 c=int(input("Enter c value:"))
@@ -123,8 +122,25 @@ else:
  
  
   
-   #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,
-   
-   
+  #write a program to find the greatest of 3 numbers if the numbers are same
+  
+a=int(input("Enter a value:"))
+b=int(input("Enter b value:"))
+c=int(input("Enter c value:"))
+if (a==b& b==c &c==a):
+ print("all the given values are same")
+elif (a==b):
+ print("a and b are the larger numbers and they are equal")
+elif (a>c):
+ print("c is the greatest")
+elif(a==c):
+ print("a and c are greater numbers and they are equal")
+elif(a>b):
+ print("b is the greatest number")
+elif(c==b):
+ print("c and b are same and greater numbers")
+else:
+ print(" a is the greatest number")
+  
 
 

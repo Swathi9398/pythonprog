@@ -125,6 +125,26 @@ else:
   
    #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,
    
+   a=int(input('Enter the first number'))
+b=int(input('Enter the first number'))
+c=int(input('Enter the first number'))
+if a==b: 
+  print('a and b are same')
+  elif a==c:
+      print('a and c are same')
+  elif b==c:
+      print('b and c are same')
+  elif a==c:
+      print('c and a are same')
+else:
+  if a>b && a>c
+    print('a is greater')
+  else:
+    if b>c
+      print('b is greater')
+    else:
+      print('c is gretaer')
+   
    
 
 

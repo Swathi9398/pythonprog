@@ -122,6 +122,13 @@ else:
   printf("c is greater")
  
  
+a,b,c = int(input("Enter values of three numbers "))
+if(a>b and a>c):
+  print("a is largest")
+elif(b > c):
+  print("b is largest")
+else:
+  print("c is largest")
   
    #write a program to find the greatest of 3 numbers and return that 2 numbers are the same if 2 same numbers are given by the user,
    
